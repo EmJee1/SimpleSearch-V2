@@ -1,6 +1,8 @@
 interface Options {
-	capitalStrict?: Boolean
+	capitalStrict?: boolean
 	hideMethod?: 'display' | 'visibility'
+	minimumChars?: number
+	typingTimeout?: number
 	defaultDisplay?:
 		| 'block'
 		| 'contents'
@@ -35,6 +37,9 @@ class SimpleSearch {
 	private capitalStrict: Boolean = false
 	private hideMethod: 'display' | 'visibility' = 'display'
 	private defaultDisplay: string = 'block'
+	private minimumChars: number = 3
+	private typingTimeout: number = 1800
+	private currentTypingTimeout: number | undefined = undefined
 
 	constructor(
 		searchBar: HTMLInputElement,
@@ -51,24 +56,38 @@ class SimpleSearch {
 
 	private initializeOptions(options: Options) {
 		if (options?.capitalStrict) this.capitalStrict = true
-		if (options?.hideMethod === 'visibility') this.hideMethod = 'visibility'
+		if (options?.hideMethod) this.hideMethod = options.hideMethod
 		if (options?.defaultDisplay) this.defaultDisplay = options.defaultDisplay
+		if (options?.minimumChars) this.minimumChars = options.minimumChars
+		if (options?.typingTimeout) this.typingTimeout = options.typingTimeout
 	}
 
 	private inputHandler() {
-		let inputText = this.searchBar.value
-		if (!this.capitalStrict) inputText = inputText.toUpperCase()
+		if (this.currentTypingTimeout) {
+			clearTimeout(this.currentTypingTimeout)
+			this.currentTypingTimeout = undefined
+		}
 
-		this.searchElements.forEach(element => {
-			let elementText = element.innerText.trim()
-			if (!this.capitalStrict) elementText = elementText.toUpperCase()
+		this.currentTypingTimeout = setTimeout(() => {
+			let inputText = this.searchBar.value
+			if (!this.capitalStrict) inputText = inputText.toUpperCase()
 
-			if (elementText.includes(inputText)) {
-				this.showElement(element)
-			} else {
-				this.hideElement(element)
+			if (inputText.length < this.minimumChars) {
+				this.showAll()
+				return
 			}
-		})
+
+			this.searchElements.forEach(element => {
+				let elementText = element.innerText.trim()
+				if (!this.capitalStrict) elementText = elementText.toUpperCase()
+
+				if (elementText.includes(inputText)) {
+					this.showElement(element)
+				} else {
+					this.hideElement(element)
+				}
+			})
+		}, this.typingTimeout)
 	}
 
 	private hideElement(element: HTMLElement) {
@@ -85,6 +104,12 @@ class SimpleSearch {
 		} else if (this.hideMethod === 'visibility') {
 			element.style.visibility = 'visible'
 		}
+	}
+
+	private showAll() {
+		this.searchElements.forEach(
+			element => (element.style.display = this.defaultDisplay)
+		)
 	}
 }
 

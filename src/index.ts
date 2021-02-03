@@ -1,7 +1,12 @@
 import SimpleSearch from './simpleSearch.js'
 
-const data = new SimpleSearch(
-	document.getElementById('search-bar') as HTMLInputElement,
-	Array.from(document.querySelectorAll('.searchItemNew')) as HTMLElement[],
-	{ hideMethod: 'display', defaultDisplay: 'block', capitalStrict: false }
-)
+const searchbar = document.getElementById('search-bar') as HTMLInputElement
+const searchItems = Array.from(document.querySelectorAll('.searchItemNew')) as HTMLElement[]
+
+const data = new SimpleSearch(searchbar, searchItems, {
+	defaultDisplay: 'block',
+	minimumChars: 3,
+	capitalStrict: true,
+	typingTimeout: 600,
+	hideMethod: 'display',
+})
