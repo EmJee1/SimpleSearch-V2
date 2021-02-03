@@ -4,7 +4,7 @@ class SimpleSearch {
         this.hideMethod = 'display';
         this.defaultDisplay = 'block';
         this.minimumChars = 3;
-        this.typingTimeout = 1800;
+        this.typingTimeout = 800;
         this.currentTypingTimeout = undefined;
         this.searchBar = searchBar;
         this.searchElements = searchElements;

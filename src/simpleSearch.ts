@@ -38,7 +38,7 @@ class SimpleSearch {
 	private hideMethod: 'display' | 'visibility' = 'display'
 	private defaultDisplay: string = 'block'
 	private minimumChars: number = 3
-	private typingTimeout: number = 1800
+	private typingTimeout: number = 800
 	private currentTypingTimeout: number | undefined = undefined
 
 	constructor(
