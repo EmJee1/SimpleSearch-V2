@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="../dist/index.js" type="module"></script>
+		<title>Advanced grid example</title>
+	</head>
+	<body>
+		<div class="row-flex">
+			<div class="col" style="padding: 30px 0">
+				<input
+					type="text"
+					id="search-bar"
+					placeholder="Begin typing..."
+					style="width: 280px; text-align: center"
+				/>
+			</div>
+		</div>
+		<div class="row" style="padding: 10px 0">
+			<h1>Colors</h1>
+		</div>
+		<div class="row">
+			<div class="col searchItemNew" style="background-color: #2ecc71">
+				<h4>TURQUOISE</h4>
+				<p>#2ecc71</p>
+			</div>
+			<div class="col searchItemNew" style="background-color: #3498db">
+				<h4>PETER RIVER</h4>
+				<p>#3498db</p>
+			</div>
+			<div class="col searchItemNew" style="background-color: #9b59b6">
+				<h4>AMETHYST</h4>
+				<p>#9b59b6</p>
+			</div>
+		</div>
+		<div class="row">
+			<h1>Capital cities</h1>
+		</div>
+		<div class="row row-flex" style="padding: 10px 0">
+			<div class="col searchItem" style="background-color: #d1d8e0">
+				<h4>SEOUL</h4>
+				<p>South Korea</p>
+			</div>
+			<div class="col searchItem" style="background-color: #a5b1c2">
+				<h4>AMSTERDAM</h4>
+				<p>Netherlands</p>
+			</div>
+			<div class="col searchItem" style="background-color: #778ca3">
+				<h4>WASHINGTON, D.C.</h4>
+				<p>United States</p>
+			</div>
+		</div>
+	</body>
+
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		.row-flex {
+			display: flex;
+			flex-wrap: wrap;
+		}
+		.col {
+			flex: 1 0 0;
+			text-align: center;
+			padding: 100px 0;
+		}
+	</style>
+</html>
